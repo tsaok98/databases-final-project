@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title><%=title%></title>
+  <link rel="stylesheet" href="/leaflet/leaflet.css" />
+  <script src="/leaflet/leaflet.js"></script>
+  <script src="/leaflet/heatmap.js"></script>
+  <script src="/leaflet/leaflet-heatmap.js"></script>
+
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+
+
+<body>
+  <h1>Databases Final Project</h1>
+  <p id="">By Seema Baddam and Kevis Tsao</p>
+
+  <div id="linkBar">
+    <a id="sulfurDioxideLink" href="http://localhost:3000/maps/sulfur+dioxide">Sulfur Dioxide</a>
+    <a id="pm10Link" href="http://localhost:3000/maps/PM10+total+0-10um+STP">PM 10</a>
+    <a id="pm2.5Link" href="http://localhost:3000/maps/PM2.5+-+local+conditions">PM 2.5</a>
+  </div>
+  <div id="mapId">
+
+  </div>
+
+<script>
+  let mapData = JSON.parse('<%-JSON.stringify(mapData)%>');
+
+  function getColor(d) {
+    return d > 1000 ? '#800026' :
+            d > 500  ? '#BD0026' :
+            d > 200  ? '#E31A1C' :
+            d > 100  ? '#FC4E2A' :
+            d > 50   ? '#FD8D3C' :
+            d > 20   ? '#FEB24C' :
+            d > 10   ? '#FED976' :
+             '#FFEDA0';
+  }
+
+  //This will not work! You need to make your own api key.
+  const mapboxAccessToken = process.env.api_key;
+  let map = L.map('mapId').setView([37.8, -96], 4);
+
+  L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {
+    attribution: `Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> Imagery © <a href="https://www.mapbox.com/">Mapbox</a>`,
+    id: 'mapbox.streets',
+    maxZoom: 6,
+    minZoom: 3
+  }).addTo(map);
+
+  //add the data points here
+  mapData.forEach((point) => {
+    let marker = L.marker([point.latitude, point.longitude]).addTo(map);
+    marker.bindPopup(
+            `<b>${point.city_name}, ${point.state_name}\n</b><br>Latitude: ${point.latitude}\n
+             Longitude: ${point.longitude}\n
+             Parameter: ${point.parameter_name}\n
+             Metric: ${point.metric_used}\t(${point.units_of_measure})\n
+             Average Measurement: ${point.arithmetic_mean}\n
+             Year Sampled: ${point.year}
+             `);
+  });
+</script>
+</body>
+
+</html>
