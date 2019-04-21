@@ -40,7 +40,7 @@
   }
 
   //This will not work! You need to make your own api key.
-  const mapboxAccessToken = process.env.api_key;
+  const mapboxAccessToken = "sk.eyJ1IjoidHNhb2siLCJhIjoiY2p1Y3hpcGs5MHQxMzQ0cGJkbzhoMDdueiJ9.TlGbLvSMtKnEkXaESTSgtA";
   let map = L.map('mapId').setView([37.8, -96], 4);
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapboxAccessToken, {

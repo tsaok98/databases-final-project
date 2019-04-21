@@ -1,8 +1,16 @@
 body {
   padding: 50px;
+  color: white;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   text-align: center;
+  background-image: url('../images/cloud-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100%;
 }
+
+
 
 #linkBar {
   padding-top: 10px;

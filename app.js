@@ -1,8 +1,17 @@
+const dotenv = require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mysql = require('mysql');
+const http = require('http');
+
+
+
+if (dotenv.error) {
+    throw dotenv.error
+}
+
 
 const indexRouter = require('./routes/index');
 const mapsRouter = require('./routes/maps');
@@ -33,5 +42,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/maps/', mapsRouter);
 app.use('/', indexRouter);
 
+app.listen(3000, () => console.log("Server running on port 8080"));
 
 module.exports = app;

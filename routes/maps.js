@@ -23,7 +23,6 @@ router.get('/:name', function(req, res) {
         arithmetic_mean: point.arithmetic_mean
       });
     });
-    console.log(mapData);
 
     let description = {
       "sulfur dioxide" : "Sulfur dioxide (SO2) is a colorless, reactive air pollutant with a strong odor. This gas can be a threat to human health, animal health, and plant life.\n" +
